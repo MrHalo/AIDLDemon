@@ -1,0 +1,198 @@
+/*
+ * This file is auto-generated.  DO NOT MODIFY.
+ * Original file: D:\\WorkSpace\\AndroidSpace\\AIDLDemon\\app\\src\\main\\aidl\\com\\devlopment\\software\\aidldemon\\IAddtionInterface.aidl
+ */
+package com.devlopment.software.aidldemon;
+public interface IAddtionInterface extends android.os.IInterface
+{
+    /** Local-side IPC implementation stub class.
+     * Stub为自定义接口的静态抽象类，不用实现具体的接口
+     * */
+    public static abstract class Stub extends android.os.Binder implements com.devlopment.software.aidldemon.IAddtionInterface
+    {
+        private static final java.lang.String DESCRIPTOR = "com.devlopment.software.aidldemon.IAddtionInterface";
+        /** Construct the stub at attach it to the interface.
+         * 1.Stub构造方法
+         * */
+        public Stub()
+        {
+            // stub本身继承Binder并且实现了自定义Interface接口
+            this.attachInterface(this, DESCRIPTOR);
+        }
+        /**
+         * Cast an IBinder object into an com.devlopment.software.aidldemon.IAddtionInterface interface,
+         * generating a proxy if needed.
+         *
+         * 将一个binder对象转换为我们定义的接口对象，这个方法是绑定服务后，客户端调用的
+         * 用于在获取服务端返回的IBinder对象后，将其转换为对应的具有功能方法的对象，
+         */
+        public static com.devlopment.software.aidldemon.IAddtionInterface asInterface(android.os.IBinder obj)
+        {
+            if ((obj==null)) {
+                return null;
+            }
+            /**
+             * 尝试在本地找到接口实现类，如果找得到直接返回该类对象，如果找不到
+             * 就去获取该实现类的代理对象
+              */
+            android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
+            if (((iin!=null)&&(iin instanceof com.devlopment.software.aidldemon.IAddtionInterface))) {
+                return ((com.devlopment.software.aidldemon.IAddtionInterface)iin);
+            }
+            return new com.devlopment.software.aidldemon.IAddtionInterface.Stub.Proxy(obj);
+        }
+        @Override public android.os.IBinder asBinder()
+        {
+            return this;
+        }
+
+        /**
+         * Stub中onTransact方法。这个方法作为服务端的方法，负责接收远程客户端通过
+         * mRemote.transact();发送过来的数据并处理。
+         * @param code
+         * @param data
+         * @param reply
+         * @param flags
+         * @return
+         * @throws android.os.RemoteException
+         */
+        @Override public boolean onTransact(int code, android.os.Parcel data, android.os.Parcel reply, int flags) throws android.os.RemoteException
+        {
+            java.lang.String descriptor = DESCRIPTOR;
+            switch (code)
+            {
+                case INTERFACE_TRANSACTION:
+                {
+                    reply.writeString(descriptor);
+                    return true;
+                }
+                case TRANSACTION_add:
+                {
+                    data.enforceInterface(descriptor);
+                    int _arg0;
+                    _arg0 = data.readInt();
+                    int _arg1;
+                    _arg1 = data.readInt();
+                    int _result = this.add(_arg0, _arg1);
+                    reply.writeNoException();
+                    reply.writeInt(_result);
+                    return true;
+                }
+                case TRANSACTION_addPerson:
+                {
+                    data.enforceInterface(descriptor);
+                    com.devlopment.software.aidldemon.Person _arg0;
+                    if ((0!=data.readInt())) {
+                        _arg0 = com.devlopment.software.aidldemon.Person.CREATOR.createFromParcel(data);
+                    }
+                    else {
+                        _arg0 = null;
+                    }
+                    boolean _result = this.addPerson(_arg0);
+                    reply.writeNoException();
+                    reply.writeInt(((_result)?(1):(0)));
+                    return true;
+                }
+                case TRANSACTION_getPersonList:
+                {
+                    data.enforceInterface(descriptor);
+                    java.util.List<com.devlopment.software.aidldemon.Person> _result = this.getPersonList();
+                    reply.writeNoException();
+                    reply.writeTypedList(_result);
+                    return true;
+                }
+                default:
+                {
+                    return super.onTransact(code, data, reply, flags);
+                }
+            }
+        }
+
+        /**
+         * Proxy类虽然实现了接口方法，但是并没有真正的去做事，而是把参数封装到了Parcel中通过binder
+         * 传递给了远程的服务。
+         */
+        private static class Proxy implements com.devlopment.software.aidldemon.IAddtionInterface
+        {
+            private android.os.IBinder mRemote;
+            Proxy(android.os.IBinder remote)
+            {
+                mRemote = remote;
+            }
+            @Override public android.os.IBinder asBinder()
+            {
+                return mRemote;
+            }
+            public java.lang.String getInterfaceDescriptor()
+            {
+                return DESCRIPTOR;
+            }
+            @Override public int add(int val1, int val2) throws android.os.RemoteException
+            {
+                android.os.Parcel _data = android.os.Parcel.obtain();
+                android.os.Parcel _reply = android.os.Parcel.obtain();
+                int _result;
+                try {
+                    _data.writeInterfaceToken(DESCRIPTOR);
+                    _data.writeInt(val1);
+                    _data.writeInt(val2);
+                    mRemote.transact(Stub.TRANSACTION_add, _data, _reply, 0);
+                    _reply.readException();
+                    _result = _reply.readInt();
+                }
+                finally {
+                    _reply.recycle();
+                    _data.recycle();
+                }
+                return _result;
+            }
+            @Override public boolean addPerson(com.devlopment.software.aidldemon.Person person) throws android.os.RemoteException
+            {
+                android.os.Parcel _data = android.os.Parcel.obtain();
+                android.os.Parcel _reply = android.os.Parcel.obtain();
+                boolean _result;
+                try {
+                    _data.writeInterfaceToken(DESCRIPTOR);
+                    if ((person!=null)) {
+                        _data.writeInt(1);
+                        person.writeToParcel(_data, 0);
+                    }
+                    else {
+                        _data.writeInt(0);
+                    }
+                    mRemote.transact(Stub.TRANSACTION_addPerson, _data, _reply, 0);
+                    _reply.readException();
+                    _result = (0!=_reply.readInt());
+                }
+                finally {
+                    _reply.recycle();
+                    _data.recycle();
+                }
+                return _result;
+            }
+            @Override public java.util.List<com.devlopment.software.aidldemon.Person> getPersonList() throws android.os.RemoteException
+            {
+                android.os.Parcel _data = android.os.Parcel.obtain();
+                android.os.Parcel _reply = android.os.Parcel.obtain();
+                java.util.List<com.devlopment.software.aidldemon.Person> _result;
+                try {
+                    _data.writeInterfaceToken(DESCRIPTOR);
+                    mRemote.transact(Stub.TRANSACTION_getPersonList, _data, _reply, 0);
+                    _reply.readException();
+                    _result = _reply.createTypedArrayList(com.devlopment.software.aidldemon.Person.CREATOR);
+                }
+                finally {
+                    _reply.recycle();
+                    _data.recycle();
+                }
+                return _result;
+            }
+        }
+        static final int TRANSACTION_add = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
+        static final int TRANSACTION_addPerson = (android.os.IBinder.FIRST_CALL_TRANSACTION + 1);
+        static final int TRANSACTION_getPersonList = (android.os.IBinder.FIRST_CALL_TRANSACTION + 2);
+    }
+    public int add(int val1, int val2) throws android.os.RemoteException;
+    public boolean addPerson(com.devlopment.software.aidldemon.Person person) throws android.os.RemoteException;
+    public java.util.List<com.devlopment.software.aidldemon.Person> getPersonList() throws android.os.RemoteException;
+}
